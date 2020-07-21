@@ -193,3 +193,25 @@ const taint_separation_plant = extendContent(Separator, "taint-separation-plant"
 	}
 
 });
+
+
+
+const stone_press = extendContent(GenericCrafter, "stone-press", {
+
+	load(){
+        this.super$load();
+		this.frameRegions = [];
+		for (var i = 0; i < 3; i++) {
+			this.frameRegions[i] = Core.atlas.find(this.name + '-frame' + i);
+		}
+    },
+
+	draw(tile){
+		this.super$draw(tile);
+		
+		const entity = tile.ent();
+
+        Draw.rect(this.frameRegions[Math.trunc(Mathf.absin(entity.totalProgress, 5, 2.999))], tile.drawx(), tile.drawy());
+	}
+
+});
